@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{web/fragments/layout}">
+<head>
+    <title>Search Users</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="content">
+    <!-- PAGE TITLE
+-->  <div th:if="${message}" class="alert alert-dismissible fade show alert-success" role="alert">
+    <span th:text="#{${message}}"></span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+    <div th:if="${error}" class="alert alert-dismissible fade show alert-danger" role="alert">
+        <span th:text="#{${error}}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+    <div class="page-title">
+        <div class="card bg-info text-white">
+            <div class="card-body">Search User</div>
+        </div>
+    </div>
+        <form action="#" th:action="@{/sign-up/search/all}" method="post" style="margin-top: 15px" id="form">
+                <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="userType">User Type</label>
+                            <select class="form-control" id="userType" name="userType" th:value="${userType}">
+                                <option value="">-- User Type --</option>
+                                <option th:each="type : ${userTypes}"
+                                        th:value="${type.name()}"
+                                        th:text="${type.getName()}"
+                                        th:selected="${type} == ${userType}">
+
+                                </option>
+                            </select>
+                        </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="userName">User Name </label>
+                        <input type="text" class="form-control" id="userName" name="userName" th:value="${userName}" placeholder="">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="userStatus">User Status</label>
+                        <select class="form-control" id="userStatus" name="userStatus" th:value="${uStatus}">
+                            <option value="">-- Select User Status --</option>
+                            <option th:each="status : ${userStatus}"
+                                    th:value="${status.name()}"
+                                    th:text="${status.getName()}"
+                                    th:selected="${status} == ${uStatus}">
+
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3 text-right" style="margin-top: 30px">
+                        <button class="btn btn-xl btn-info" type="submit">Search</button>
+                        <a class="btn btn-xl btn-primary" href="/sign-up/new/user/create/update">New User</a>
+                    </div>
+
+                </div>
+                <hr>
+        </form>
+    <br/>
+    <div th:replace="web/pages/signUp/search-result::search-result"></div>
+
+</div>
+</body>
+</html>

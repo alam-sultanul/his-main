@@ -1,0 +1,59 @@
+h1{
+	color:#0000FF;
+}
+
+
+
+h2{
+	color:#68af81;
+}
+
+footer{
+	margin-top:60px;
+}
+
+
+.item:hover {
+	background-color: white;
+	opacity: 0.5;
+}
+
+
+.bg-app-brand:hover {
+	opacity: 0.4;
+}
+
+
+.bg-app-brand {
+	background: #243248;
+}
+
+.lo-card {
+	height: 100px;
+}
+
+.weaver-card {
+	width:350px !important;
+}
+
+.weaver-card-div {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 50px;
+
+}
+
+.weaver-card-image {
+	width:185px;
+	height:185px;
+
+}
+
+.weaver-card-text {
+	font-size: xx-large;
+}
+
+.fieldSet {
+	border: 1px solid !important;
+}

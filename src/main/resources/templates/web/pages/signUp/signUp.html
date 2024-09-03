@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Sign Up</title>
+        <!-- GOOGLE FONTS -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500"
+              rel="stylesheet"/>
+        <link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet"/>
+        <!-- PLUGINS CSS STYLE -->
+        <link href="../../assets/plugins/toaster/toastr.min.css" rel="stylesheet"/>
+        <link href="../../assets/plugins/flag-icons/css/flag-icon.min.css" rel="stylesheet"/>
+        <link href="../../assets/plugins/ladda/ladda.min.css" rel="stylesheet"/>
+        <!-- SLEEK CSS -->
+        <link id="sleek-css" rel="stylesheet" href="../../assets/css/sleek.css"/>
+
+        <!-- FAVICON -->
+        <link href="../../assets/img/favicon.png" rel="shortcut icon"/>
+
+        <!--
+          HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+        -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+</head>
+<body class="bg-light-gray login-bg" th:style="'background-image:url(' + @{/images/jnc-aca.jpg} + ');background-position:relative;background-repeat:no-repeat;background-size:cover;'" alt="e-Loan Management" >
+<div class="container d-flex flex-column justify-content-between vh-100">
+    <div class="row justify-content-center mt-5">
+        <div class="col-xl-5 col-lg-6 col-md-10">
+            <div class="card">
+
+                <div  style="text-align:center; margin-top: 15px;">
+                    <img src="../images/logo.jpg" alt="jnc application system" style="border-radius: 100px;vertical-align: middle; width: 100px; height: 100px;">
+                </div>
+
+                <div  style="text-align:center; margin-top: 25px;">
+                    <h3 style="color: #12097C;">Demo Application</h3>
+                    <h3 style="color: #12097C;font-size: small"> Apps </h3>
+                </div>
+                <div  style="text-align:center; margin-top: 20px;" th:if="${message}">
+                    <h6 style="color: green;size: 25px;">
+                        <span th:text="#{${message}}">test</span></h6>
+                </div>
+                <div class="card-body p-5">
+                    <form action="#" th:action="@{/sign-up}" th:object="${signUpForm}" method="post">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="studentId">Student Id <span style="color: red"> * </span></label>
+                                <input type="text" th:class="${#fields.hasErrors('studentId')} ? 'form-control is-invalid' : 'form-control'"
+                                       id="studentId" th:field="*{studentId}" placeholder="" required>
+                                <div th:if="${#fields.hasErrors('studentId')}" th:errors="*{studentId}" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fullName">Full Name <span style="color: red"> * </span></label>
+                                <input type="text" th:class="${#fields.hasErrors('fullName')} ? 'form-control is-invalid' : 'form-control'"
+                                       id="fullName" placeholder="" th:field="*{fullName}">
+                                <div th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="userName">User Name <span style="color: red"> * </span></label>
+                                <input type="text" th:class="${#fields.hasErrors('userName')} ? 'form-control is-invalid' : 'form-control'"
+                                       id="userName" placeholder="" th:field="*{userName}">
+                                <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email">Email <span style="color: red"> * </span></label>
+                                <input type="text" th:class="${#fields.hasErrors('email')} ? 'form-control is-invalid' : 'form-control'"
+                                       id="email" placeholder="" th:field="*{email}">
+                                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="contactNo">Contact Number <span style="color: red"> * </span></label>
+                                <input type="text" th:class="${#fields.hasErrors('contactNo')} ? 'form-control is-invalid' : 'form-control'"
+                                       id="contactNo" placeholder="" th:field="*{contactNo}">
+                                <div th:if="${#fields.hasErrors('contactNo')}" th:errors="*{contactNo}" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password">Password <span style="color: red"> * </span></label>
+                                <input type="password" th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
+                                       id="password" placeholder="" th:field="*{password}">
+                                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="conformPassword">Conform Password <span style="color: red"> * </span></label>
+                                <input type="password" th:class="'form-control'" oninput="matchingPassword()"
+                                       id="conformPassword" placeholder="">
+                            </div>
+                        </div>
+                        <center><h8 id="matchig" style="color: red"></h8></center>
+                        <div class="row" style="margin-top:5px">
+                            <div class="col-md-2 mb-3">
+                            </div>
+                            <div class="col-md-8 mb-3">
+                        <button type="submit" id="createBtn" class="btn btn-lg btn-info btn-block mb-4" disabled>Create Account</button>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <center><a class="text-center" href="/login">Back To Login</a></center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright pl-0">
+
+    </div>
+</div>
+<script>
+       function matchingPassword() {
+            var x = document.getElementById("password").value;
+            var y = document.getElementById("conformPassword").value;
+            if (x!=y) {
+                document.getElementById("matchig").innerHTML="Password don't match";
+                document.getElementById("matchig").style.color="red";
+               document.getElementById("createBtn").disabled = true;
+
+            }
+            else{
+                document.getElementById("matchig").innerHTML="Password match";
+                document.getElementById("matchig").style.color="green";
+               document.getElementById("createBtn").disabled = false;
+
+            }
+        };
+
+</script>
+</body>
+</html>

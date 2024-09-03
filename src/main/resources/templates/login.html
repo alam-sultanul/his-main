@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Login Page</title>
+        <link rel="icon" href="../../assets/images/student-management-4.jpg" type="image/x-icon">
+        <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/css/app-style.css" rel="stylesheet"/>
+    </head>
+
+</head>
+<body>
+<div id="wrapper">
+    <div class="card card-authentication1 mx-auto my-5">
+        <div class="card-body">
+            <div class="card-content p-2">
+                <div class="text-center">
+                    <img src="/images/student-management-4.jpg"  style="border-radius: 100px;vertical-align: middle; width: 100px; height: 100px;" alt="logo icon">
+                </div>
+                <div class="card-title text-uppercase text-center py-3" style="color: aqua;font-size: small">Application System</div>
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="username" class="sr-only">Username</label>
+                        <div class="position-relative has-icon-right">
+                            <input type="text" name="username" id="username" class="form-control input-shadow" placeholder="Enter Username" required>
+                            <div class="form-control-position">
+                                <i class="icon-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="sr-only">Password</label>
+                        <div class="position-relative has-icon-right">
+                            <input type="password" name="password" id="password" class="form-control input-shadow" placeholder="Enter Password" required>
+                            <div class="form-control-position">
+                                <i class="icon-lock"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="color:red;margin-bottom: 20px;" th:if="${param.error}"
+                         th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+                        <center><span th:text="${errorMsg}" class="text-center">Wrong input!</span></center>
+                    </div>
+                    <div class="form-group" style="color:red;margin-bottom: 20px;" th:if="${invalidTokenMsg}"
+                    >
+                        <center><span th:text="${invalidTokenMsg}" class="text-center">Wrong input!</span></center>
+                    </div>
+
+                    <button type="submit" class="btn btn-info btn-block"><i class="fa fa-sign-in"></i> Sign In</button>
+                    <div class="text-center mt-3"><a href="/reset/password" style="color: aqua">Reset Password</a></div>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+            </div>
+        </div>
+        <div class="card-footer text-center py-3">
+            <p class="text-warning mb-0">Developed By <a href="https://www.linkedin.com/in/sultanul-alam-864b99143/">SULTANUL ALAM</a></p>
+        </div>
+    </div>
+</div><!--wrapper-->
+<script src="../../assets/plugins/jquery/jquery.min.js"></script>
+<script src="../../assets/plugins/js/popper.min.js"></script>
+<script src="../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        $("#username").focus();
+    });
+</script>
+</body>
+</html>

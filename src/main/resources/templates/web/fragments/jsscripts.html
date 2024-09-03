@@ -1,0 +1,138 @@
+<div th:fragment="jsscripts" xmlns:th="http://www.w3.org/1999/xhtml">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>
+    <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/plugins/toaster/toastr.min.js"></script>
+    <script src="/assets/plugins/slimscrollbar/jquery.slimscroll.min.js"></script>
+    <script src="/assets/plugins/charts/Chart.min.js"></script>
+    <script src="/assets/plugins/ladda/spin.min.js"></script>
+    <script src="/assets/plugins/ladda/ladda.min.js"></script>
+    <script src="/assets/plugins/jquery-mask-input/jquery.mask.min.js"></script>
+    <script src="/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="/assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.js"></script>
+    <script src="/assets/plugins/jvectormap/jquery-jvectormap-world-mill.js"></script>
+    <script src="/assets/plugins/daterangepicker/moment.min.js"></script>
+    <script src="/assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/assets/plugins/jekyll-search.min.js"></script>
+    <script src="/assets/js/sleek.js"></script>
+    <script src="/assets/js/chart.js"></script>
+    <script src="/assets/js/date-range.js"></script>
+    <script src="/assets/js/map.js"></script>
+    <script src="/assets/js/custom.js"></script>
+    <script src="/assets/js/custom-datatable-1.js"></script>
+    <script src="/assets/js/alert.min.js"></script>
+
+    <script th:inline="javascript">
+      $("#searchTable").on("keyup", function() {
+            const value = $(this).val().toLowerCase();
+            $(".table tbody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+            countRows(value);
+        });
+
+        function countRows(value){
+            const numOfVisibleRows = $(".table tbody tr").filter(function() {
+                return $(this).css('display') !== 'none';
+            }).length;
+        };
+
+        jQuery(document).ready(function($) {
+            if ($('.table').find('tbody tr').length<=0) {
+                $('table tbody').hide();
+            }
+        });
+
+
+
+        $("#checkAll").on("click", function () {
+            if ($("input:checkbox").prop("checked")) {
+                $('input[type="checkbox"]').prop("checked", true);
+            } else {
+                $('input[type="checkbox"]').prop("checked", false);
+            }
+        });
+        $('input[type="checkbox"]').on("change", function () {
+            var total_check_boxes =  $('tbody tr td input[type="checkbox"]').length;
+            var total_checked_boxes =  $('tbody tr td input[type="checkbox"]:checked').length;
+            // If all checked manually then check master checkbox
+            if (total_check_boxes === total_checked_boxes) {
+                $("#checkAll").prop("checked", true);
+            }
+            else {
+                $("#checkAll").prop("checked", false);
+            }
+        });
+        function readURL(input,value) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    if(value==1) $('#studentImage').attr('src', e.target.result);
+                    if(value==2) $('#userImage').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+      function validatePrivilegeForm() {
+          const roleId = document.forms["rolePrivilegeForm"]["roleId"].value;
+          if (roleId === null || roleId === "") {
+              alert("Please Select A Role First");
+              return false;
+          }
+      };
+
+      function validateRoleAssignmentForm() {
+          const userId = document.forms["roleAssignmentForm"]["userId"].value;
+          if (userId === null || userId === "") {
+              alert("Please Select A User For Assign Role");
+              return false;
+          }
+      };
+
+      function reloadRolePrivilegeForm() {
+          const roleId = document.forms["rolePrivilegeForm"]["roleId"].value;
+          if (roleId != null && roleId !== 0) {
+              window.location.href = "/role/privileges?roleId=" + roleId;
+          }
+      };
+      function selectRoles() {
+          uncheckAll();
+          const userId = $("#userId").val();
+          if (userId) {
+              $.get("/role/ajax-user-roles?userId=" + userId, function (data) {
+                  data.forEach(function (item) {
+                      $('#r-' + item).prop( "checked", true);
+                  });
+              });
+          }
+      };
+
+      function uncheckAll() {
+          const uncheck = document.getElementsByName('selectedRoleIds');
+          for (var i = 0; i < uncheck.length; ++i) {
+              if (uncheck[i].type === 'checkbox') {
+                  uncheck[i].checked = false;
+              }
+          }
+      };
+
+
+
+      jQuery(document).ready(function($) {
+          // get current URL path and assign 'active' class
+         var pathname = window.location.pathname;
+         // $('a[href="'+pathname+'"]').closest('ul').attr("addClass","active");
+          $('a[href="'+pathname+'"]').closest('ul').collapse("show");
+      });
+
+      function getPathName() {
+          var pathname = window.location.pathname;
+          return pathname;
+      }
+
+
+
+    </script>
+</div>

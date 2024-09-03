@@ -1,0 +1,48 @@
+<div th:fragment="search-result" class="row" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="col-12">
+        <div class="form-row">
+            <div class="col-md-3 mb-3">
+                <label for="searchTable">Search/Filter</label>
+                <input type="text" th:class="'form-control'" id="searchTable" name="searchTable" placeholder="search/filter">
+            </div>
+        </div>
+        <table class="table table-responsive table-responsive-large table-hover table-info table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Sl No</th>
+                <th>Full Name</th>
+                <th>User Name</th>
+                <th>User Type</th>
+                <th>User Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="list, itemStat : ${userList}">
+                <td th:text="${itemStat.index + 1}"></td>
+                  <td th:text="${list.getFullName()}"></td>
+                <td th:text="${list.getUserName()}"></td>
+                  <td th:text="${list.userType.getName()}"></td>
+                <td th:text="${list.userStatus.getName()}"></td>
+                 <td class="text-right">
+                     <center><a th:href="@{/sign-up/new/user/create/update/edit/{id}(id=${list.getId()})}" class="btn btn-warning : 'form-control'">Edit</a></center>
+                 </td>
+             </tr>
+           </tbody>
+       </table>
+   </div>
+   <style type="text/css">
+       tbody {
+           display: block;
+           height:200px;
+           overflow:auto;
+       }
+       thead, tbody tr {
+           display:table;
+           width:100%;
+           table-layout:fixed;
+       }
+       thead {
+       }
+   </style>
+</div>

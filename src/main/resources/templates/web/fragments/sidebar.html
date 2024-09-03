@@ -1,0 +1,51 @@
+<aside th:fragment="sidebar" xmlns:th="http://www.w3.org/1999/xhtml" class="left-sidebar bg-sidebar">
+    <div id="sidebar" class="sidebar sidebar-with-footer">
+        <div class="app-brand">
+            <a href="/">
+                <img th:src="@{/images/student-management-4.jpg}" alt="afl"
+                     style="border-radius: 100px;width:60px;height:60px;border:0;">
+                <span class="brand-name"><h6>Demo Application</h6></span>
+            </a>
+        </div>
+        <!-- begin sidebar scrollbar -->
+        <div class="sidebar-scrollbar">
+            <!-- sidebar menu -->
+            <ul class="nav sidebar-inner" id="sidebar-menu">
+                <li class="has-sub active expand">
+                    <a class="sidenav-item-link" href="/dashboard"
+                       aria-expanded="false" aria-controls="dashboard">
+                        <i class="mdi mdi-view-dashboard-outline"></i>
+                        <span class="nav-text"> Dashboard </span></b>
+                    </a>
+                </li>
+
+                <li class="has-sub" th:each="menu : ${#session.getAttribute('userMenus')}">
+                    <th:block th:switch="${menu.getMenuName()}">
+
+                        <a  class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
+                            th:data-target="${'#' + menu.getUrlFriendlyName()}"
+                            aria-expanded="false" aria-controls="pages">
+                            <i  class="mdi mdi-account-key" th:if="${menu.getMenuName()} == 'User Management'"></i>
+                            <i  class="mdi mdi-windows-classic" th:if="${menu.getMenuName()} == 'Menu'"></i>
+                            <i  class="mdi mdi-settings" th:if="${menu.getMenuName()} == 'Setup'"></i>
+                            <span class="nav-text" th:text="${menu.getMenuName()}"></span> <b class="caret"></b>
+
+
+                        </a>
+                    </th:block>
+                    <ul class="collapse" th:id="${menu.getUrlFriendlyName()}" data-parent="#sidebar-menu">
+                        <div class="sub-menu" th:each="subMenu: ${menu.getSubMenus()}">
+                            <li th:classappend="${#httpServletRequest.getRequestURI() == subMenu.getUrl() ? 'active':''}">
+                                <a class="sidenav-item-link" th:href="${subMenu.getUrl()}">
+                                    <i class="mdi mdi-xmpp"></i>&nbsp;
+                                    &nbsp;<span class="nav-text" th:text="${subMenu.getSubMenuName()}"></span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <hr class="separator"/>
+    </div>
+</aside>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{web/fragments/layout}">
+<head>
+    <title>Change Profile</title>
+
+</head>
+<body>
+
+<div layout:fragment="content" class="content">
+
+    <div th:if="${message}" class="alert alert-dismissible fade show alert-success" role="alert">
+        <span th:text="#{${message}}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div th:if="${error}" class="alert alert-dismissible fade show alert-danger" role="alert">
+        <span th:text="#{${error}}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <!-- PAGE TITLE -->
+    <div class="page-title">
+        <div class="card bg-info text-white">
+            <div class="card-body">Change Profile</div>
+        </div>
+    </div>
+    <br>
+    <!-- END PAGE TITLE -->
+    <div id="home-main-content">
+        <div class="card-body">
+            <form action="#" th:object="${user}" th:action="@{/sign-up/user-profile-view/personal-info/update}" method="post" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" name="id" id="id" th:field="*{id}">
+                <div class="form-row">
+                    <div class="col-md-3 mb-1">
+                        <label for="userImage">Personal Photo</label>
+                        <div style="height:150px;width: 150px;border: 1px dotted black">
+                            <img id="userImage" th:alt="${userImage.getFilename()}" th:title="${userImage.getFilename()}" th:src="@{${userImage.getImageUrl()}}" class="img-thumbnail"/>
+                        </div>
+                        <input type="file" name="userImageFile" id="userImageFile"/>
+                        <input type="text" readonly class="form-control-plaintext"/>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label for="userId">User Name</label>
+                        <input type="text" class="form-control" id="userId" name="userId" th:value="*{username}" disabled>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="fullName">Full Name <span style="color: red">*</span></label>
+                        <input type="text" class="form-control" name="fullName" id="fullName" th:field="*{fullName}">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="contactNo">Mobile No <span style="color: red">*</span></label>
+                        <input type="text" class="form-control" name="contactNo" id="contactNo" th:field="*{contactNo}">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="emailAddress">E-mail Address </label>
+                        <input type="email" class="form-control" name="emailAddress" id="emailAddress" th:field="*{emailAddress}">
+                    </div>
+                </div>
+                <hr>
+                <div class="text-right">
+                    <button class="btn btn-xl btn-success" type="submit">Save</button>
+                    <a th:href="@{'/'}" class="btn btn-xl btn-primary" style="color:white;margin-left: 5px;">Home</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        $("#userImageFile").change(function(){
+            readURL(this,2);
+        });
+    </script>
+</div>
+</body>
+</html>

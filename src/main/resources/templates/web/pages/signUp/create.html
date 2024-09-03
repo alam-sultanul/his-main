@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{web/fragments/layout}">
+<head>
+    <title>User Create</title>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <div th:if="${message}" class="alert alert-dismissible fade show alert-success" role="alert">
+        <span th:text="#{${message}}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div th:if="${error}" class="alert alert-dismissible fade show alert-danger" role="alert">
+        <span th:text="#{${error}}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="page-title">
+        <div class="card bg-info text-white">
+            <div class="card-body"><a th:href="@{/sign-up/search/all}"><img th:src="@{/images/back2.png}" style="margin-right: 10px"></a>User SignUp</div>
+        </div>
+    </div>
+    <!-- END PAGE TITLE -->
+    <div id="home-main-content">
+        <div class="card-body">
+            <form action="#" th:action="@{/sign-up/new/user/create/update/save}" th:object="${signUpForm}"
+                  method="post">
+
+                <input type="hidden" id="id" th:field="*{id}">
+
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="fullName">Full Name <span style="color: red">*</span></label>
+                        <input type="text" th:class="${#fields.hasErrors('fullName')} ? 'form-control is-invalid' : 'form-control'"
+                               id="fullName" placeholder="" th:field="*{fullName}">
+                        <div th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="userName">User Name (login user) <span style="color: red"> * </span></label>
+                        <input type="text" th:class="${#fields.hasErrors('userName')} ? 'form-control is-invalid' : 'form-control'"
+                               id="userName" placeholder="" th:field="*{userName}">
+                        <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="userType">User Type <span style="color: red">*</span></label>
+                        <select th:class="${#fields.hasErrors('userType')} ? 'form-control is-invalid' : 'form-control'" id="userType" name="userType" th:field="*{userType}">
+                            <option value="">-- User Type --</option>
+                            <option th:each="type : ${userTypes}"
+                                    th:value="${type.name()}"
+                                    th:text="${type.getName()}"
+                                    th:selected="${type} == ${userType}">
+
+                            </option>
+                        </select>
+                        <div th:if="${#fields.hasErrors('userType')}" th:errors="*{userType}"
+                             class="invalid-feedback">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="email">Email <span style="color: red"> * </span></label>
+                        <input type="text" th:class="${#fields.hasErrors('email')} ? 'form-control is-invalid' : 'form-control'"
+                               id="email" placeholder="" th:field="*{email}">
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="contactNo">Contact Number <span style="color: red"> * </span></label>
+                        <input type="text" th:class="${#fields.hasErrors('contactNo')} ? 'form-control is-invalid' : 'form-control'"
+                               id="contactNo" placeholder="" th:field="*{contactNo}">
+                        <div th:if="${#fields.hasErrors('contactNo')}" th:errors="*{contactNo}" class="invalid-feedback"></div>
+                    </div>
+                    <th:block th:if="${signUpForm.id != null}">
+                        <div class="col-md-4 mb-3">
+                            <label for="userStatus">User Current Status</label>
+                            <select th:class="${#fields.hasErrors('userStatus')} ? 'form-control is-invalid' : 'form-control'" id="userStatus" name="userStatus"  th:field="*{userStatus}">
+                                <option th:each="status : ${userStatus}"
+                                        th:value="${status.name()}"
+                                        th:text="${status.getName()}"
+                                        th:selected="${status} == ${signUpForm.userStatus}">
+
+                                </option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('userStatus')}" th:errors="*{userStatus}"
+                                  class="text-danger"></span>
+                        </div>
+                    </th:block>
+                </div>
+                <th:block th:if="${signUpForm.id == null}">
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="password">Password <span style="color: red"> * </span></label>
+                        <input type="password" th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
+                               id="password" placeholder="" th:field="*{password}">
+                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="conformPassword">Conform Password <span style="color: red"> * </span></label>
+                        <input type="password" th:class="'form-control'" oninput="matchingPassword()"
+                               id="conformPassword" placeholder="">
+                        <div>
+                            <center><h8 id="matchig" style="color: red"></h8></center>
+                        </div>
+                    </div>
+                </div>
+                </th:block>
+                <button class="btn btn-xl btn-success"  id="createBtn" type="submit">Save</button>
+
+            </form>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+
+        });
+        function matchingPassword() {
+            var x = document.getElementById("password").value;
+            var y = document.getElementById("conformPassword").value;
+            if (x!=y) {
+                document.getElementById("matchig").innerHTML="Password don't match";
+                document.getElementById("matchig").style.color="red";
+                document.getElementById("createBtn").disabled = true;
+
+            }
+            else{
+                document.getElementById("matchig").innerHTML="Password match";
+                document.getElementById("matchig").style.color="green";
+                document.getElementById("createBtn").disabled = false;
+
+            }
+        };
+
+    </script>
+</div>
+</body>
+</html>
