@@ -16,6 +16,8 @@ public interface UserService {
     User saveUser(User user);
     boolean isUsernameExists(String username);
     boolean isUserEmailExists(String email);
+
+    void deleteUser(Long id);
     List<User> findAllUsers();
     User saveRoleAssignment(User user, List<Long> roleIds);
     boolean isUserCreated(Long objectRefId);

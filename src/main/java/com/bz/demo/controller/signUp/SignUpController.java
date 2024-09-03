@@ -52,6 +52,8 @@ public class SignUpController {
     private static final String SIGN_SEARCH_ALL ="/sign-up/search/all";
     private static final String NEW_USER_CREATE =SIGN_UP+"/new/user/create/update";
     private static final String NEW_USER_EDIT =SIGN_UP+"/new/user/create/update/edit/{id}";
+    //private static final String NEW_USER_DELETE =SIGN_UP+"/new/user/create/update/delete/{id}";
+    public static final String NEW_USER_DELETE = SIGN_UP + "/delete/{id}/deleteRecord";
     private static final String NEW_USER_SAVE =SIGN_UP+"/new/user/create/update/save";
     private static final String SIGN_UP_CHANGE_PASSWORD =SIGN_UP+"/user/password-change";
     private static final String ROUTE_CHANGE_PASSWORD_SAVE= SIGN_UP + "/change-password/save";
@@ -195,6 +197,16 @@ public class SignUpController {
         SignUpForm signUpForm=new SignUpForm(user);
         populateSignUpForm(model,signUpForm);
         return "/web/pages/signUp/create";
+    }
+
+    @GetMapping(NEW_USER_DELETE)
+    public String deleteUser(Model model, @PathVariable Long id, RedirectAttributes redirectAttributes){
+        User user=userService.getUser(id);
+        SignUpForm signUpForm=new SignUpForm(user);
+        userService.deleteUser(id);
+        populateSignUpForm(model,signUpForm);
+        redirectAttributes.addFlashAttribute("message", "user.info.deleted");
+        return REDIRECT + SIGN_SEARCH_ALL;
     }
 
 
