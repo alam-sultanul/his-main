@@ -1,11 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{web/fragments/layout}">
 <head>
+    <title>Demo Application System</title>
+    <style>
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
 <div layout:fragment="content" class="content">
-    <marquee behavior="scroll" direction="left"><p style="color: aqua">Demo Application System</p></marquee>
+    <marquee behavior="scroll" direction="left">
+        <p style="color: aqua">Demo Application System</p>
+    </marquee>
+    <div>
+        <button class="button" onclick="window.location.href='/sign-up/search/all';">Go to User Form</button>
+    </div>
 </div>
+
 </body>
 </html>
